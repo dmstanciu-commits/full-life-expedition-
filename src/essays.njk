@@ -25,6 +25,15 @@ canonical: "https://fulllifeexpedition.com/essays.html"
     </div>
 
     <div class="archive-list">
+{% endraw %}
+{%- for e in collections.essays %}
+     <a class="archive-item" href="{{ e.url }}" data-cat="{{ (e.data.category or '') | lower | replace(' design','') | replace(' ','') }}" data-reveal>
+      <span class="archive-item__date">{{ e.date | readableDate }}</span>
+      <span class="archive-item__main"><span class="archive-item__cat">{{ e.data.category }}</span><h3>{{ e.data.title }}</h3><p>{{ e.data.excerpt }}</p></span>
+      <span class="archive-item__read">{{ e.data.readtime or 'Essay' }}</span>
+     </a>
+{%- endfor %}
+{% raw %}
      <a class="archive-item" href="why-ai-workflow-is-not-just-automation.html" data-cat="ai" data-reveal>
       <span class="archive-item__date">Jun 2026</span>
       <span class="archive-item__main"><span class="archive-item__cat">AI Workflow</span><h3>Why AI workflow is not just automation</h3><p>Value comes from arranging the work and the judgment, not from removing steps.</p></span>

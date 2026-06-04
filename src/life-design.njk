@@ -33,6 +33,15 @@ canonical: "https://fulllifeexpedition.com/life-design.html"
    <div class="wrap">
     <div class="section-head" data-reveal><span class="eyebrow">Essays in this thread</span><h2>Recent writing on life design.</h2></div>
     <div class="archive-list">
+{% endraw %}
+{%- for e in collections.essays | byCategory("Life Design") %}
+     <a class="archive-item" href="{{ e.url }}" data-cat="life" data-reveal>
+      <span class="archive-item__date">{{ e.date | readableDate }}</span>
+      <span class="archive-item__main"><span class="archive-item__cat">{{ e.data.category }}</span><h3>{{ e.data.title }}</h3><p>{{ e.data.excerpt }}</p></span>
+      <span class="archive-item__read">{{ e.data.readtime or 'Essay' }}</span>
+     </a>
+{%- endfor %}
+{% raw %}
      <a class="archive-item" href="designing-a-full-life-without-optimizing-everything.html" data-cat="life" data-reveal>
       <span class="archive-item__date">Jun 2026</span>
       <span class="archive-item__main"><span class="archive-item__cat">Life Design</span><h3>Designing a full life without optimizing everything</h3><p>On intention over efficiency, and why a good life quietly resists being turned into a dash</p></span>

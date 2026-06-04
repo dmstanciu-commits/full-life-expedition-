@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: dmstanciu-commits/full-life-expedition-
+  branch: main
+  # base_url: l'indirizzo del piccolo servizio di accesso GitHub (lo aggiungiamo dopo aver creato il Worker)
+
+# Lingua dell'interfaccia
+i18n:
+  structure: single_file
+
+media_folder: "src/assets/img/uploads"
+public_folder: "/assets/img/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: essays
+    label: "Saggi"
+    label_singular: "Saggio"
+    description: "Scrivi un nuovo saggio nativo del sito. Si pubblica da solo e compare nell'archivio e nella pagina della sua categoria."
+    folder: "src/essays"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    preview_path: "{{slug}}.html"
+    fields:
+      - { name: title, label: "Titolo", widget: string }
+      - { name: date, label: "Data", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - name: category
+        label: "Categoria"
+        widget: select
+        options: ["AI", "Systems", "Science", "Life Design"]
+        default: "AI"
+      - { name: excerpt, label: "Estratto (sottotitolo breve)", widget: text, required: false }
+      - { name: readtime, label: "Tempo di lettura (es. 6 min read)", widget: string, required: false, default: "" }
+      - { name: tags_list, label: "Tag (facoltativi)", widget: list, required: false }
+      - { name: body, label: "Testo del saggio", widget: markdown }

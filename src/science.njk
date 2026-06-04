@@ -33,6 +33,15 @@ canonical: "https://fulllifeexpedition.com/science.html"
    <div class="wrap">
     <div class="section-head" data-reveal><span class="eyebrow">Essays in this thread</span><h2>Recent writing on science.</h2></div>
     <div class="archive-list">
+{% endraw %}
+{%- for e in collections.essays | byCategory("Science") %}
+     <a class="archive-item" href="{{ e.url }}" data-cat="science" data-reveal>
+      <span class="archive-item__date">{{ e.date | readableDate }}</span>
+      <span class="archive-item__main"><span class="archive-item__cat">{{ e.data.category }}</span><h3>{{ e.data.title }}</h3><p>{{ e.data.excerpt }}</p></span>
+      <span class="archive-item__read">{{ e.data.readtime or 'Essay' }}</span>
+     </a>
+{%- endfor %}
+{% raw %}
      <a class="archive-item" href="the-cognitive-cost-of-modern-productivity.html" data-cat="science" data-reveal>
       <span class="archive-item__date">Jun 2026</span>
       <span class="archive-item__main"><span class="archive-item__cat">Science</span><h3>The cognitive cost of modern productivity</h3><p>What attention research reveals about the quiet tax of switching, notifications and overload.</p></span>

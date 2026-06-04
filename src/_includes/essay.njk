@@ -1,0 +1,34 @@
+---
+layout: base.njk
+ogType: article
+---
+<article>
+  <header class="article-head">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">Home</a> / <a href="essays.html">Essays</a></p>
+      <p class="article-meta">
+        {% if category %}<span class="cat">{{ category }}</span>{% endif %}
+        <span>{{ date | readableDate }}</span>
+        {% if readtime %}<span>{{ readtime }}</span>{% endif %}
+      </p>
+      <h1>{{ title }}</h1>
+      {% if excerpt %}<p class="lede">{{ excerpt }}</p>{% endif %}
+    </div>
+  </header>
+  <div class="article-hero-art" aria-hidden="true"></div>
+  <div class="prose">
+    {{ content | safe }}
+    {% if tags_list %}<div class="article-tags">{% for t in tags_list %}<span class="tag-mono">#{{ t }}</span>{% endfor %}</div>{% endif %}
+  </div>
+</article>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="substack-band" data-reveal style="text-align:center">
+      <span class="eyebrow">Subscribe</span>
+      <h2 style="margin:0.6rem 0 0.8rem">Get the next essay in your inbox.</h2>
+      <p style="color:var(--text-muted);max-width:48ch;margin:0 auto 1.4rem">Essays, working notes and frameworks on AI, systems, science and reflective life design.</p>
+      <a class="btn btn--gold" href="https://fulllifeexpedition.substack.com/" target="_blank" rel="noopener">Subscribe on Substack</a>
+    </div>
+  </div>
+</section>

@@ -33,6 +33,15 @@ canonical: "https://fulllifeexpedition.com/systems.html"
    <div class="wrap">
     <div class="section-head" data-reveal><span class="eyebrow">Essays in this thread</span><h2>Recent writing on systems.</h2></div>
     <div class="archive-list">
+{% endraw %}
+{%- for e in collections.essays | byCategory("Systems") %}
+     <a class="archive-item" href="{{ e.url }}" data-cat="systems" data-reveal>
+      <span class="archive-item__date">{{ e.date | readableDate }}</span>
+      <span class="archive-item__main"><span class="archive-item__cat">{{ e.data.category }}</span><h3>{{ e.data.title }}</h3><p>{{ e.data.excerpt }}</p></span>
+      <span class="archive-item__read">{{ e.data.readtime or 'Essay' }}</span>
+     </a>
+{%- endfor %}
+{% raw %}
      <a class="archive-item" href="systems-thinking-as-a-survival-skill.html" data-cat="systems" data-reveal>
       <span class="archive-item__date">Jun 2026</span>
       <span class="archive-item__main"><span class="archive-item__cat">Systems</span><h3>Systems thinking as a survival skill for complex work</h3><p>Why seeing the whole, not the parts, is quietly becoming a core literacy for anyone doing </p></span>

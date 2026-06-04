@@ -12,6 +12,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/404.html": "404.html" });
 
   // --- Inline a project file (CSS/JS) into the page at build time ---
+  // Keeps a single source of truth for style.css / main.js while still
+  // producing self-contained pages (same behaviour as the current site).
   eleventyConfig.addFilter("inlineFile", function (relPath) {
     const full = path.join(__dirname, "src", relPath);
     try {
