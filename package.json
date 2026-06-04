@@ -1,0 +1,13 @@
+{
+  "name": "full-life-expedition",
+  "version": "1.0.0",
+  "description": "Full Life Expedition — editorial field journal (Eleventy + Sveltia CMS)",
+  "private": true,
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

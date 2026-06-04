@@ -1,0 +1,12 @@
+{
+  "url": "https://fulllifeexpedition.com",
+  "name": "Full Life Expedition",
+  "substack": "https://fulllifeexpedition.substack.com/",
+  "feedBase": "https://fulllifeexpedition.substack.com/feed",
+  "sections": {
+    "ai": { "id": "385730", "slug": "ai-signals", "label": "AI" },
+    "systems": { "id": "385726", "slug": "systems", "label": "Systems" },
+    "science": { "id": "385729", "slug": "science", "label": "Science" },
+    "life-design": { "id": "385728", "slug": "life-design", "label": "Life Design" }
+  }
+}
