@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dmstanciu-commits/full-life-expedition-
   branch: main
-  # base_url: l'indirizzo del piccolo servizio di accesso GitHub (lo aggiungiamo dopo aver creato il Worker)
+  base_url: https://sveltia-cms-auth.dm-stanciu.workers.dev
 
 # Lingua dell'interfaccia
 i18n:
