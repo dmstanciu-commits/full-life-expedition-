@@ -8,6 +8,20 @@
  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // Consent Mode v2 — default DENIED until the visitor accepts (GDPR)
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  // Honour a previous "accept" choice immediately
+  try {
+    if (localStorage.getItem('fle-cookie-consent') === 'granted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+  } catch (e) {}
   gtag('js', new Date());
   gtag('config', 'G-KRP4EFKQGQ');
  </script>
@@ -49,5 +63,41 @@
 {{ "assets/js/main.js" | inlineFile | safe }}
  </script>
  <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "653b15cb76fc44dabd55af97f5b97bbd"}'></script><!-- End Cloudflare Web Analytics -->
+
+ <!-- Cookie consent banner (GDPR / Google Consent Mode) -->
+ <div id="cookie-banner" class="cookie-banner" hidden role="dialog" aria-label="Consenso cookie">
+  <p class="cookie-banner__text">Questo sito usa cookie di <strong>Google Analytics</strong> per capire come viene usato. Puoi accettarli o rifiutarli, le statistiche anonime di base restano comunque attive.</p>
+  <div class="cookie-banner__btns">
+   <button type="button" class="btn btn--outline" data-cookie="reject">Rifiuta</button>
+   <button type="button" class="btn btn--gold" data-cookie="accept">Accetta</button>
+  </div>
+ </div>
+ <style>
+  .cookie-banner{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:9999;max-width:680px;margin:0 auto;background:var(--paper,#FCF8F0);color:var(--text,#3A2E22);border:1px solid var(--border-soft,rgba(26,23,20,.12));border-radius:12px;box-shadow:0 18px 50px -18px rgba(26,23,20,.45);padding:1.1rem 1.25rem;display:flex;gap:.9rem 1.25rem;align-items:center;flex-wrap:wrap;justify-content:space-between;font-family:var(--sans,"Inter",sans-serif)}
+  .cookie-banner__text{font-size:.9rem;line-height:1.5;margin:0;flex:1 1 320px}
+  .cookie-banner__btns{display:flex;gap:.6rem;flex:0 0 auto}
+  .cookie-banner .btn{padding:.55em 1.1em;font-size:.85rem;cursor:pointer}
+  @media(max-width:520px){.cookie-banner{flex-direction:column;align-items:stretch}.cookie-banner__btns{justify-content:flex-end}}
+ </style>
+ <script>
+  (function(){
+   try{
+    var KEY="fle-cookie-consent";
+    var banner=document.getElementById("cookie-banner");
+    if(!banner)return;
+    var stored=null; try{stored=localStorage.getItem(KEY);}catch(e){}
+    if(!stored){banner.hidden=false;}
+    banner.addEventListener("click",function(ev){
+     var b=ev.target.closest("[data-cookie]"); if(!b)return;
+     var choice=b.getAttribute("data-cookie");
+     try{localStorage.setItem(KEY, choice==="accept"?"granted":"denied");}catch(e){}
+     if(choice==="accept" && typeof gtag==="function"){
+      gtag("consent","update",{analytics_storage:"granted",ad_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"});
+     }
+     banner.hidden=true;
+    });
+   }catch(e){}
+  })();
+ </script>
 </body>
 </html>
