@@ -204,8 +204,11 @@
     const fallbackCat = box.dataset.feedCat || "Essay";
     const esc = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const fmt = (d) => { try { return new Date(d).toLocaleDateString("en-US", { month: "short", year: "numeric" }); } catch (e) { return ""; } };
-    const proxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(feed);
-    fetch(proxy)
+    // Same-origin proxy (Cloudflare Pages Function) — no external CORS dependency
+    let endpoint = "/substack-feed";
+    const sec = feed.match(/[?&]sectionId=(\d+)/);
+    if (sec) endpoint += "?sectionId=" + sec[1];
+    fetch(endpoint)
       .then((r) => (r.ok ? r.text() : Promise.reject()))
       .then((xml) => {
         const doc = new DOMParser().parseFromString(xml, "text/xml");
