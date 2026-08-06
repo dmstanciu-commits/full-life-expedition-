@@ -758,6 +758,9 @@ body.menu-open .nav__burger span:nth-child(3) { transform: translateY(-8px) rota
   transform: translateX(100%); transition: transform .5s var(--ease); overflow-y: auto;
  }
  body.menu-open { overflow: hidden; }
+ /* Drop the nav blur while the menu is open: backdrop-filter makes the nav a
+    containing block for the fixed panel, which otherwise collapses to the bar height. */
+ body.menu-open .nav { background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
  body.menu-open .nav__panel { transform: none; }
  .nav__panel a { display: block; font-family: var(--serif); font-weight: 600; font-size: 1.7rem; padding: 0.7rem 0; border-bottom: 1px solid var(--ink-line); color: var(--text-cream); }
  .nav__panel a:hover { color: var(--glow); }
