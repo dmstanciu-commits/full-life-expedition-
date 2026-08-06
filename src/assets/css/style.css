@@ -278,6 +278,8 @@ p { text-wrap: pretty; }
 body.menu-open .nav__burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 body.menu-open .nav__burger span:nth-child(2) { opacity: 0; }
 body.menu-open .nav__burger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+/* Make the close (X) visible against the dark open panel */
+body.menu-open .nav__burger span { background: var(--text-cream); }
 
 /* ----------------------------------------------------------------------
   6. Hero, LIGHT & warm, soft golden glow
