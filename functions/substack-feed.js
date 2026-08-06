@@ -9,22 +9,38 @@ export async function onRequestGet(context) {
     feed += "?sectionId=" + sectionId;
   }
 
+  const fetchFeed = () =>
+    fetch(feed, {
+      headers: { "User-Agent": "Mozilla/5.0 (FullLifeExpedition feed proxy)" },
+      cf: {
+        // Cache only good responses; never cache upstream errors (e.g. Substack 522).
+        cacheTtlByStatus: { "200-299": 600, "300-399": 0, "400-599": 0 },
+        cacheEverything: true,
+      },
+    });
+
+  // One retry to smooth over transient upstream hiccups.
   let upstream;
   try {
-    upstream = await fetch(feed, {
-      headers: { "User-Agent": "Mozilla/5.0 (FullLifeExpedition feed proxy)" },
-      cf: { cacheTtl: 600, cacheEverything: true },
-    });
+    upstream = await fetchFeed();
+    if (!upstream.ok) upstream = await fetchFeed();
   } catch (e) {
-    return new Response("Upstream feed fetch failed", { status: 502 });
+    try {
+      upstream = await fetchFeed();
+    } catch (e2) {
+      return new Response("Upstream feed fetch failed", { status: 502 });
+    }
   }
 
   const body = await upstream.text();
+  const looksValid = upstream.ok && body.includes("<item");
+
   return new Response(body, {
-    status: upstream.ok ? 200 : upstream.status,
+    status: looksValid ? 200 : 502,
     headers: {
       "content-type": "application/rss+xml; charset=utf-8",
-      "cache-control": "public, max-age=600",
+      // The browser keeps its static fallback on a non-200, so short client cache is fine.
+      "cache-control": looksValid ? "public, max-age=300" : "no-store",
       "access-control-allow-origin": "*",
     },
   });
